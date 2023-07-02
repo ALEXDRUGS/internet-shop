@@ -2,30 +2,24 @@ package ru.skypro.homework.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class ExceptionApiHandler {
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
-    public ResponseEntity<String> notFoundException(HttpClientErrorException.NotFound exception) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
+    public ResponseEntity<?> notFoundException() {
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
-    public ResponseEntity<String> unauthorizedException(HttpClientErrorException.Unauthorized exception) {
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(exception.getMessage());
+    public ResponseEntity<?> unauthorizedException() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @ExceptionHandler(HttpClientErrorException.Forbidden.class)
-    public ResponseEntity<String> forbiddenException(HttpClientErrorException.Forbidden exception) {
-        return ResponseEntity
-                .status(HttpStatus.FORBIDDEN)
-                .body(exception.getMessage());
+    public ResponseEntity<?> forbiddenException() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }
