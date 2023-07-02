@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class ExtendedAdDto {
-    Integer adId;
+    Integer pk;
     String authorFirstName;
     String authorLastName;
     String description;
     String email;
-    String imageReference;
+    String image;
     String phone;
     Integer price;
     String title;

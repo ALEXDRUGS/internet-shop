@@ -39,9 +39,9 @@ public class MappingUtils {
 
     public AdDto mapToAdDto(@NotNull Ad entity) {
         AdDto dto = new AdDto();
-        dto.setAdId(entity.getAdId());
-        dto.setUserId(AuthServiceImpl.getAuthUser().getId());
-        dto.setAvatarReference(entity.getAvatarReference());
+        dto.setPk(entity.getAdId());
+        dto.setAuthor(AuthServiceImpl.getAuthUser().getId());
+        dto.setImage(entity.getAvatarReference());
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         return dto;
@@ -50,7 +50,7 @@ public class MappingUtils {
     public ExtendedAdDto mapToExtendedAdDto(@NotNull Ad entity) {
         User user = AuthServiceImpl.getAuthUser();
         ExtendedAdDto dto = new ExtendedAdDto();
-        dto.setAdId(entity.getAdId());
+        dto.setPk(entity.getAdId());
         dto.setAuthorFirstName(dto.getAuthorFirstName());
         dto.setAuthorLastName(dto.getAuthorLastName());
         dto.setEmail(user.getEmail());
@@ -58,7 +58,7 @@ public class MappingUtils {
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         dto.setDescription(entity.getDescription());
-        dto.setImageReference(entity.getImageReference());
+        dto.setImage(entity.getImageReference());
         return dto;
     }
 
@@ -76,11 +76,11 @@ public class MappingUtils {
 
     public CommentDto mapToCommentDto(@NotNull Comment entity) {
         CommentDto dto = new CommentDto();
-        dto.setUserId(AuthServiceImpl.getAuthUser().getId());
-        dto.setFirstName(entity.getFirstName());
-        dto.setUserAvatarReference(entity.getUserAvatarReference());
-        dto.setCommentId(entity.getCommentId());
-        dto.setDateOfCreation(entity.getDateOfCreation());
+        dto.setAuthor(AuthServiceImpl.getAuthUser().getId());
+        dto.setAuthorFirstName(entity.getFirstName());
+        dto.setAuthorImage(entity.getUserAvatarReference());
+        dto.setPk(entity.getCommentId());
+        dto.setCreatedAt(entity.getDateOfCreation());
         dto.setText(entity.getText());
         return dto;
     }

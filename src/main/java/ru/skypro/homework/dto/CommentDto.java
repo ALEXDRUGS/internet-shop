@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class CommentDto {
-    Integer userId;
-    String userAvatarReference;
-    String firstName;
-    LocalDateTime dateOfCreation;
-    Integer commentId;
+    Integer author;
+    String authorImage;
+    String authorFirstName;
+    LocalDateTime createdAt;
+    Integer pk;
     String text;
 }
