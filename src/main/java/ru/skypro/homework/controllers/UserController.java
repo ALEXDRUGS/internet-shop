@@ -11,29 +11,29 @@ import ru.skypro.homework.services.impl.UserService;
 @CrossOrigin(value = "http://localhost:3000")
 @RequestMapping("/users")
 public class UserController {
-    private final UserService service;
-    public UserController(UserService service) {
-        this.service = service;
+    private final UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/set_password")
     public void setPassword(@RequestParam("currentPassword") String currentPassword,
                             @RequestParam("newPassword") String newPassword) {
-        service.updatePassword(currentPassword, newPassword);
+        userService.updatePassword(currentPassword, newPassword);
     }
 
     @GetMapping("/me")
     public UserDto getUser() {
-        return service.getUser();
+        return userService.getUser();
     }
 
     @PatchMapping("/me")
     public UserUpdateDto updateUser(@RequestBody UserUpdateDto updateDto) {
-        return service.updateUser(updateDto);
+        return userService.updateUser(updateDto);
     }
 
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void updateAvatar(@RequestParam("image") MultipartFile avatar) {
-        service.updateAvatar(avatar);
+        userService.updateAvatar(avatar);
     }
 }
