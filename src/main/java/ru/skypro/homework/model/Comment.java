@@ -12,7 +12,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer commentId;
     @ManyToOne
-    User userId;
+    User user;
     @ManyToOne
     Ad adId;
     String userAvatarReference;

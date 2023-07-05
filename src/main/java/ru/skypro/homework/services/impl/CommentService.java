@@ -31,7 +31,7 @@ public class CommentService {
     public CommentDto createComment(String text, Integer adId) {
         User user = AuthServiceImpl.getAuthUser();
         Comment comment = new Comment();
-        comment.setUserId(user);
+        comment.setUser(user);
         comment.setFirstName(user.getFirstName());
         comment.setUserAvatarReference(user.getAvatarReference());
         comment.setDateOfCreation(LocalDateTime.now());

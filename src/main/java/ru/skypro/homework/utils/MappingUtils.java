@@ -65,7 +65,7 @@ public class MappingUtils {
     public Ad mapToAd(@NotNull CreateOrUpdateAdDto dto, @NotNull String imageReference) {
         User user = AuthServiceImpl.getAuthUser();
         Ad ad = new Ad();
-        ad.setUserId(user);
+        ad.setUser(user);
         ad.setAvatarReference(user.getAvatarReference());
         ad.setPrice(dto.getPrice());
         ad.setTitle(dto.getTitle());

@@ -12,7 +12,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adId;
     @ManyToOne
-    private User userId;
+    private User user;
     private String avatarReference;
     private Integer price;
     private String title;
