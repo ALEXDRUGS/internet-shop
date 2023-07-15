@@ -1,15 +1,18 @@
 package ru.skypro.homework.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Data
-@RequiredArgsConstructor
 @Component
+@AllArgsConstructor
 public class UserDetailsDto {
-    private final String username;
-    private final String password;
-    private final Integer userId;
-    private final Role role;
+    private String username;
+    private String password;
+    private Integer userId;
+    private Role role;
+
+    public UserDetailsDto() {
+    }
 }
