@@ -1,4 +1,4 @@
-package ru.skypro.homework.controllers;
+package ru.skypro.homework.filters;
 
 
 import org.jetbrains.annotations.NotNull;

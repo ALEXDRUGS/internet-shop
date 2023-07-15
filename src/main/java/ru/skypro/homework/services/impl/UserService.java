@@ -27,8 +27,12 @@ public class UserService {
         user.setPassword(newPass);
     }
 
-    public UserDto getUser() {
+    public UserDto getUserDto() {
         return mappingUtils.mapToUserDto(AuthServiceImpl.getAuthUser());
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public UserUpdateDto updateUser(UserUpdateDto updateDto) {

@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/me")
     public UserDto getUser() {
-        return userService.getUser();
+        return userService.getUserDto();
     }
 
     @PatchMapping("/me")

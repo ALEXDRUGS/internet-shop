@@ -13,21 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String avatarReference;
+    @Column(unique = true)
     private String username;
     private String password;
-    private String email;
     private String firstName;
     private String lastName;
     private String phone;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
-    public String getRole() {
-        return this.role.name();
-    }
-
-    public void setRole(String role) {
-        this.role = Role.valueOf(role);
-    }
 }

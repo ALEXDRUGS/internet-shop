@@ -13,7 +13,7 @@ public class MappingUtils {
     public UserDto mapToUserDto(@NotNull User entity) {
         UserDto dto = new UserDto();
         dto.setId(entity.getId());
-        dto.setEmail(entity.getEmail());
+        dto.setEmail(entity.getUsername());
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setPhone(entity.getPhone());
@@ -53,7 +53,7 @@ public class MappingUtils {
         dto.setPk(entity.getAdId());
         dto.setAuthorFirstName(dto.getAuthorFirstName());
         dto.setAuthorLastName(dto.getAuthorLastName());
-        dto.setEmail(user.getEmail());
+        dto.setEmail(user.getUsername());
         dto.setPhone(user.getPhone());
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
@@ -83,5 +83,9 @@ public class MappingUtils {
         dto.setCreatedAt(entity.getDateOfCreation());
         dto.setText(entity.getText());
         return dto;
+    }
+
+    public UserDetailsDto mapToUserDetailsDto(User user) {
+        return new UserDetailsDto(user.getUsername(), user.getPassword(), user.getId(), user.getRole());
     }
 }
