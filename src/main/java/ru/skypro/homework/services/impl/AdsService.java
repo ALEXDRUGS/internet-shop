@@ -33,7 +33,7 @@ public class AdsService {
         try {
             Path imageReference = Files.createFile(Path.of("/resources/images" + image.getOriginalFilename()));
             adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, String.valueOf(imageReference)));
-            return mappingUtils.mapToAdDto(adsRepository.getByUserId(AuthServiceImpl.getAuthUser().getId()));
+            return mappingUtils.mapToAdDto(mappingUtils.mapToAd(createDto, String.valueOf(imageReference)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

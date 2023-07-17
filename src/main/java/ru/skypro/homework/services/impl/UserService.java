@@ -1,7 +1,10 @@
 package ru.skypro.homework.services.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.homework.dto.RegisterReq;
+import ru.skypro.homework.dto.Role;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.dto.UserUpdateDto;
 import ru.skypro.homework.model.User;
@@ -16,10 +19,12 @@ import java.io.IOException;
 public class UserService {
     private final UserRepository userRepository;
     private final MappingUtils mappingUtils;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, MappingUtils mappingUtils) {
+    public UserService(UserRepository userRepository, MappingUtils mappingUtils, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mappingUtils = mappingUtils;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void updatePassword(String oldPass, String newPass) {
@@ -48,5 +53,16 @@ public class UserService {
         } catch (IOException e) {
             e.getCause();
         }
+    }
+
+    public void createUser(RegisterReq registerReq, Role role) {
+        User user = new User();
+        user.setUsername(registerReq.getUsername());
+        user.setPassword(passwordEncoder.encode(registerReq.getPassword()));
+        user.setFirstName(registerReq.getFirstName());
+        user.setLastName(registerReq.getLastName());
+        user.setPhone(registerReq.getPhone());
+        user.setRole(role);
+        userRepository.saveAndFlush(user);
     }
 }

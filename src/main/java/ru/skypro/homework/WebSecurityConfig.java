@@ -7,14 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.skypro.homework.dto.UserDetailsDto;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-  private final UserDetailsDto userDetailsDto;
   private static final String[] AUTH_WHITELIST = {
           "/swagger-resources/**",
           "/swagger-ui.html",
@@ -34,7 +32,7 @@ public class WebSecurityConfig {
                                     .mvcMatchers(AUTH_WHITELIST)
                                     .permitAll()
                                     .mvcMatchers("/ads/**", "/users/**")
-                                    .hasRole(userDetailsDto.getRole().name()))
+                                    .authenticated())
             .cors()
             .and()
         .httpBasic(withDefaults());
