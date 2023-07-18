@@ -12,7 +12,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String avatarReference;
+    @OneToOne
+    private Image avatar;
     @Column(unique = true)
     private String username;
     private String password;

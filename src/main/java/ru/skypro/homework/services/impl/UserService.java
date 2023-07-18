@@ -11,20 +11,18 @@ import ru.skypro.homework.model.User;
 import ru.skypro.homework.repositories.UserRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final MappingUtils mappingUtils;
     private final PasswordEncoder passwordEncoder;
+    private final ImageService imageService;
 
-    public UserService(UserRepository userRepository, MappingUtils mappingUtils, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, MappingUtils mappingUtils, PasswordEncoder passwordEncoder, ImageService imageService) {
         this.userRepository = userRepository;
         this.mappingUtils = mappingUtils;
         this.passwordEncoder = passwordEncoder;
+        this.imageService = imageService;
     }
 
     public void updatePassword(String oldPass, String newPass) {
@@ -45,14 +43,7 @@ public class UserService {
     }
 
     public void updateAvatar(MultipartFile avatar) {
-        File convertFile = new File(AuthServiceImpl.getAuthUser().getAvatarReference() + avatar.getOriginalFilename());
-        try (FileOutputStream stream = new FileOutputStream(convertFile)) {
-            if (convertFile.createNewFile()) {
-                stream.write(avatar.getBytes());
-            }
-        } catch (IOException e) {
-            e.getCause();
-        }
+        imageService.createImage(avatar);
     }
 
     public void createUser(RegisterReq registerReq, Role role) {

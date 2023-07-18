@@ -10,7 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 public class ExceptionApiHandler {
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
     public ResponseEntity<?> notFoundException() {
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @ExceptionHandler(HttpClientErrorException.Unauthorized.class)

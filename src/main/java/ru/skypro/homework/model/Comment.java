@@ -15,7 +15,8 @@ public class Comment {
     User user;
     @ManyToOne
     Ad adId;
-    String userAvatarReference;
+    @OneToOne
+    Image avatar;
     String firstName;
     LocalDateTime dateOfCreation;
     String text;

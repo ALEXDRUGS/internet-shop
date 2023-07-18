@@ -32,7 +32,7 @@ public class UserController {
         return userService.updateUser(updateDto);
     }
 
-    @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.IMAGE_JPEG_VALUE)
     public void updateAvatar(@RequestParam("image") MultipartFile avatar) {
         userService.updateAvatar(avatar);
     }

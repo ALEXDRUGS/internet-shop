@@ -9,9 +9,6 @@ import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.repositories.AdsRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +16,12 @@ import java.util.stream.Collectors;
 public class AdsService {
     private final AdsRepository adsRepository;
     private final MappingUtils mappingUtils;
+    private final ImageService imageService;
 
-    public AdsService(AdsRepository adsRepository, MappingUtils mappingUtils) {
+    public AdsService(AdsRepository adsRepository, MappingUtils mappingUtils, ImageService imageService) {
         this.adsRepository = adsRepository;
         this.mappingUtils = mappingUtils;
+        this.imageService = imageService;
     }
 
     public List<Ad> getAllAds() {
@@ -30,13 +29,9 @@ public class AdsService {
     }
 
     public AdDto createAd(CreateOrUpdateAdDto createDto, MultipartFile image) {
-        try {
-            Path imageReference = Files.createFile(Path.of("/resources/images" + image.getOriginalFilename()));
-            adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, String.valueOf(imageReference)));
-            return mappingUtils.mapToAdDto(mappingUtils.mapToAd(createDto, String.valueOf(imageReference)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        imageService.createImage(image);
+        adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, imageService.findByUsername(AuthServiceImpl.getAuthUser().getUsername())));
+        return mappingUtils.mapToAdDto(adsRepository.getByUserId(AuthServiceImpl.getAuthUser().getId()));
     }
 
     public ExtendedAdDto getAdInfo(Integer adId) {
@@ -48,7 +43,7 @@ public class AdsService {
     }
 
     public AdDto updateAd(CreateOrUpdateAdDto dto, Integer id) {
-        return mappingUtils.mapToAdDto(mappingUtils.mapToAd(dto, adsRepository.getByAdId(id).getImageReference()));
+        return mappingUtils.mapToAdDto(mappingUtils.mapToAd(dto, adsRepository.getByAdId(id).getImage()));
     }
 
     public List<AdDto> getUserAds() {
@@ -59,8 +54,8 @@ public class AdsService {
                 .collect(Collectors.toList());
     }
 
-    public String updateAdImage(MultipartFile image, Integer id) {
-        adsRepository.getByAdId(id).setImageReference(String.valueOf(image));
-        return adsRepository.getByAdId(id).getImageReference();
+    public void updateAdImage(MultipartFile image, Integer id) {
+        imageService.createImage(image);
+        adsRepository.getByAdId(id).setImage(imageService.findByUsername(AuthServiceImpl.getAuthUser().getUsername()));
     }
 }

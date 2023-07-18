@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.*;
 import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.model.Comment;
+import ru.skypro.homework.model.Image;
 import ru.skypro.homework.model.User;
 import ru.skypro.homework.services.impl.AuthServiceImpl;
 
@@ -17,7 +18,7 @@ public class MappingUtils {
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setPhone(entity.getPhone());
-        dto.setImage(entity.getAvatarReference());
+        dto.setImage(entity.getAvatar());
         return dto;
     }
 
@@ -41,7 +42,7 @@ public class MappingUtils {
         AdDto dto = new AdDto();
         dto.setPk(entity.getAdId());
         dto.setAuthor(AuthServiceImpl.getAuthUser().getId());
-        dto.setImage(entity.getAvatarReference());
+        dto.setImage(entity.getImage());
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         return dto;
@@ -58,19 +59,19 @@ public class MappingUtils {
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         dto.setDescription(entity.getDescription());
-        dto.setImage(entity.getImageReference());
+        dto.setImage(entity.getImage());
         return dto;
     }
 
-    public Ad mapToAd(@NotNull CreateOrUpdateAdDto dto, @NotNull String imageReference) {
+    public Ad mapToAd(@NotNull CreateOrUpdateAdDto dto, @NotNull Image image) {
         User user = AuthServiceImpl.getAuthUser();
         Ad ad = new Ad();
         ad.setUser(user);
-        ad.setAvatarReference(user.getAvatarReference());
+        ad.setAvatar(user.getAvatar());
         ad.setPrice(dto.getPrice());
         ad.setTitle(dto.getTitle());
         ad.setDescription(dto.getDescription());
-        ad.setImageReference(imageReference);
+        ad.setImage(image);
         return ad;
     }
 
@@ -78,7 +79,7 @@ public class MappingUtils {
         CommentDto dto = new CommentDto();
         dto.setAuthor(AuthServiceImpl.getAuthUser().getId());
         dto.setAuthorFirstName(entity.getFirstName());
-        dto.setAuthorImage(entity.getUserAvatarReference());
+        dto.setAuthorImage(entity.getAvatar());
         dto.setPk(entity.getCommentId());
         dto.setCreatedAt(entity.getDateOfCreation());
         dto.setText(entity.getText());

@@ -33,7 +33,7 @@ public class CommentService {
         Comment comment = new Comment();
         comment.setUser(user);
         comment.setFirstName(user.getFirstName());
-        comment.setUserAvatarReference(user.getAvatarReference());
+        comment.setAvatar(user.getAvatar());
         comment.setDateOfCreation(LocalDateTime.now());
         comment.setText(text);
         comment.setAdId(adsRepository.getByAdId(adId));

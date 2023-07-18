@@ -52,7 +52,7 @@ public class AdsController {
     }
 
     @PatchMapping("/ads/{id}/image")
-    public String updateAdImage(@RequestBody MultipartFile image, @PathVariable Integer id) {
-        return adsService.updateAdImage(image, id);
+    public void updateAdImage(@RequestBody MultipartFile image, @PathVariable Integer id) {
+        adsService.updateAdImage(image, id);
     }
 }

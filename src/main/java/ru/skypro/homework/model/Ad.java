@@ -7,15 +7,16 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Ad {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adId;
     @ManyToOne
     private User user;
-    private String avatarReference;
+    @ManyToOne
+    private Image avatar;
     private Integer price;
     private String title;
     private String description;
-    private String imageReference;
+    @OneToOne
+    private Image image;
 }

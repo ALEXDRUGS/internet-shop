@@ -2,6 +2,7 @@ package ru.skypro.homework.dto;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import ru.skypro.homework.model.Image;
 
 @Data
 public class ExtendedAdDto {
@@ -11,7 +12,7 @@ public class ExtendedAdDto {
     String authorLastName;
     String description;
     String email;
-    String image;
+    Image image;
     String phone;
     Integer price;
     String title;
