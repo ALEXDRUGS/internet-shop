@@ -7,18 +7,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.RegisterReq;
 import ru.skypro.homework.dto.Role;
+import ru.skypro.homework.model.User;
 import ru.skypro.homework.services.AuthService;
 
 
 @Service
 public class AuthServiceImpl implements AuthService {
+  private static UserService userService;
   private final UserDetailsServiceImpl userDetailsService;
-  private final UserService userService;
   private final PasswordEncoder encoder;
 
   public AuthServiceImpl(UserDetailsServiceImpl userDetailsService, UserService userService, PasswordEncoder passwordEncoder) {
+    AuthServiceImpl.userService = userService;
     this.userDetailsService = userDetailsService;
-    this.userService = userService;
     this.encoder = passwordEncoder;
   }
 
@@ -40,8 +41,8 @@ public class AuthServiceImpl implements AuthService {
     return true;
   }
 
-  public static ru.skypro.homework.model.User getAuthUser() {
+  public static User getAuthUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    return (ru.skypro.homework.model.User) authentication.getPrincipal();
+    return userService.getUserByUsername(authentication.getName());
   }
 }
