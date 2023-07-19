@@ -43,7 +43,7 @@ public class UserService {
     }
 
     public void updateAvatar(MultipartFile avatar) {
-        imageService.createImage(avatar);
+        AuthServiceImpl.getAuthUser().setAvatar(imageService.createImage(avatar));
     }
 
     public void createUser(RegisterReq registerReq, Role role) {

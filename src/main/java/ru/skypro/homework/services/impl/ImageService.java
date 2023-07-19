@@ -21,7 +21,6 @@ public class ImageService {
             i.setImage(image.getBytes());
             i.setUsername(AuthServiceImpl.getAuthUser().getUsername());
             imageRepository.saveAndFlush(i);
-            AuthServiceImpl.getAuthUser().setAvatar(i);
         } catch (IOException e) {
             e.printStackTrace();
         }

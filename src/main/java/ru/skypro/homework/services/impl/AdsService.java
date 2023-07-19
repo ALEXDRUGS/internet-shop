@@ -6,7 +6,6 @@ import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.model.Ad;
-import ru.skypro.homework.model.Image;
 import ru.skypro.homework.repositories.AdsRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
@@ -55,7 +54,6 @@ public class AdsService {
     }
 
     public void updateAdImage(MultipartFile image, Integer id) {
-        Image i = imageService.createImage(image);
-        adsRepository.getByAdId(id).setImage(i);
+        adsRepository.getByAdId(id).setImage(imageService.createImage(image));
     }
 }
