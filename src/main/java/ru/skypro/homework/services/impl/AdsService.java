@@ -6,6 +6,7 @@ import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.model.Ad;
+import ru.skypro.homework.model.Image;
 import ru.skypro.homework.repositories.AdsRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
@@ -29,8 +30,7 @@ public class AdsService {
     }
 
     public AdDto createAd(CreateOrUpdateAdDto createDto, MultipartFile image) {
-        imageService.createImage(image);
-        adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, imageService.findByUsername(AuthServiceImpl.getAuthUser().getUsername())));
+        adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, imageService.createImage(image)));
         return mappingUtils.mapToAdDto(adsRepository.getByUserId(AuthServiceImpl.getAuthUser().getId()));
     }
 
@@ -55,7 +55,7 @@ public class AdsService {
     }
 
     public void updateAdImage(MultipartFile image, Integer id) {
-        imageService.createImage(image);
-        adsRepository.getByAdId(id).setImage(imageService.findByUsername(AuthServiceImpl.getAuthUser().getUsername()));
+        Image i = imageService.createImage(image);
+        adsRepository.getByAdId(id).setImage(i);
     }
 }

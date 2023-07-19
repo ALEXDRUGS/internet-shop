@@ -15,7 +15,7 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public void createImage(MultipartFile image) {
+    public Image createImage(MultipartFile image) {
         Image i = new Image();
         try {
             i.setImage(image.getBytes());
@@ -25,9 +25,6 @@ public class ImageService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Image findByUsername(String username) {
-        return imageRepository.findByUsername(username);
+        return i;
     }
 }
