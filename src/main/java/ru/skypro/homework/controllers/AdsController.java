@@ -52,7 +52,7 @@ public class AdsController {
                 || adsService.getByAdId(id).getUser().getRole().name().equals("ADMIN")) {
             return adsService.updateAd(dto, id);
         }
-        throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+        throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/ads/me")

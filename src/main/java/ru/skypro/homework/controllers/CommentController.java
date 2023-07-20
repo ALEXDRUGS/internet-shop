@@ -43,6 +43,6 @@ public class CommentController {
                 || commentService.getByCommentId(commentId).getUser().getRole().name().equals("ADMIN")){
             return commentService.updateComment(text, adId, commentId);
         }
-        throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+        throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
     }
 }
