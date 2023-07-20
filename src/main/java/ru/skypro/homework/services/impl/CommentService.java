@@ -49,4 +49,8 @@ public class CommentService {
         commentRepository.getByAdIdAndCommentId(adId, commentId).setText(text);
         return mappingUtils.mapToCommentDto(commentRepository.getByAdIdAndCommentId(adId, commentId));
     }
+
+    public Comment getByCommentId(Integer commentId) {
+        return commentRepository.getReferenceById(commentId);
+    }
 }

@@ -56,4 +56,8 @@ public class AdsService {
     public void updateAdImage(MultipartFile image, Integer id) {
         adsRepository.getByAdId(id).setImage(imageService.createImage(image));
     }
+
+    public Ad getByAdId(Integer adId) {
+        return adsRepository.getByAdId(adId);
+    }
 }
