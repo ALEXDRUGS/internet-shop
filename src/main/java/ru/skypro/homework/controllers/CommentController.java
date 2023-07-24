@@ -31,18 +31,21 @@ public class CommentController {
 
     @DeleteMapping("/{adId}/comments/{commentId}")
     public void deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId) {
-        if (commentService.getByCommentId(commentId).getUser().equals(AuthServiceImpl.getAuthUser())
-                || commentService.getByCommentId(commentId).getUser().getRole().name().equals("ADMIN")){
+        if (isAuthorities(commentId)) {
             commentService.deleteComment(adId, commentId);
         }
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
     public CommentDto updateComment(@RequestBody String text, @PathVariable Integer adId, @PathVariable Integer commentId) {
-        if (commentService.getByCommentId(commentId).getUser().equals(AuthServiceImpl.getAuthUser())
-                || commentService.getByCommentId(commentId).getUser().getRole().name().equals("ADMIN")){
+        if (isAuthorities(commentId)) {
             return commentService.updateComment(text, adId, commentId);
         }
         throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
+    }
+
+    private boolean isAuthorities(Integer id) {
+        return commentService.getByCommentId(id).getUser().equals(AuthServiceImpl.getAuthUser())
+                || commentService.getByCommentId(id).getUser().getRole().name().equals("ADMIN");
     }
 }

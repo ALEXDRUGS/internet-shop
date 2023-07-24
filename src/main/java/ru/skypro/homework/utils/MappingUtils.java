@@ -86,7 +86,7 @@ public class MappingUtils {
         return dto;
     }
 
-    public UserDetailsDto mapToUserDetailsDto(User user) {
+    public UserDetailsDto mapToUserDetailsDto(@NotNull User user) {
         return new UserDetailsDto(user.getUsername(), user.getPassword(), user.getId(), user.getRole());
     }
 }

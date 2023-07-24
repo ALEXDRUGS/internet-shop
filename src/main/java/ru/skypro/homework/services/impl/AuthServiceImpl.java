@@ -12,7 +12,6 @@ import ru.skypro.homework.services.AuthService;
 
 import javax.persistence.Lob;
 
-
 @Service
 public class AuthServiceImpl implements AuthService {
   private static UserService userService;

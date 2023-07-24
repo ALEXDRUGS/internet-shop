@@ -18,7 +18,6 @@ import java.util.List;
 @CrossOrigin(value = "http://localhost:3000")
 public class AdsController {
     private final AdsService adsService;
-
     public AdsController(AdsService adsService) {
         this.adsService = adsService;
     }
@@ -42,16 +41,14 @@ public class AdsController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/ads/{id}")
     public void deleteAd(@PathVariable Integer id) {
-        if (adsService.getByAdId(id).getUser().equals(AuthServiceImpl.getAuthUser())
-                || adsService.getByAdId(id).getUser().getRole().name().equals("ADMIN")) {
+        if (isAuthorities(id)) {
             adsService.deleteAd(id);
         }
     }
 
     @PatchMapping("/ads/{id}")
     public AdDto updateAd(@RequestBody CreateOrUpdateAdDto dto, @PathVariable Integer id) {
-        if (adsService.getByAdId(id).getUser().equals(AuthServiceImpl.getAuthUser())
-                || adsService.getByAdId(id).getUser().getRole().name().equals("ADMIN")) {
+        if (isAuthorities(id)) {
             return adsService.updateAd(dto, id);
         }
         throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
@@ -66,5 +63,10 @@ public class AdsController {
     @PatchMapping("/ads/{id}/image")
     public void updateAdImage(@RequestBody MultipartFile image, @PathVariable Integer id) {
         adsService.updateAdImage(image, id);
+    }
+
+    private boolean isAuthorities(Integer id) {
+        return adsService.getByAdId(id).getUser().equals(AuthServiceImpl.getAuthUser())
+                || adsService.getByAdId(id).getUser().getRole().name().equals("ADMIN");
     }
 }
