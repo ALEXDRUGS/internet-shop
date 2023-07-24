@@ -10,6 +10,8 @@ import ru.skypro.homework.dto.Role;
 import ru.skypro.homework.model.User;
 import ru.skypro.homework.services.AuthService;
 
+import javax.persistence.Lob;
+
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -41,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
     return true;
   }
 
+  @Lob
   public static User getAuthUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     return userService.getUserByUsername(authentication.getName());

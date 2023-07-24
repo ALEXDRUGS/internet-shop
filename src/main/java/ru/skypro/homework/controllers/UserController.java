@@ -1,5 +1,6 @@
 package ru.skypro.homework.controllers;
 
+import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ public class UserController {
         return userService.updateUser(updateDto);
     }
 
+    @SneakyThrows
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.IMAGE_JPEG_VALUE)
     public void updateAvatar(@RequestParam("image") MultipartFile avatar) {
         userService.updateAvatar(avatar);

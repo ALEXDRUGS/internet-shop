@@ -1,7 +1,6 @@
 package ru.skypro.homework.dto;
 
 import lombok.Data;
-import ru.skypro.homework.model.Image;
 
 @Data
 public class UserDto {
@@ -10,5 +9,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String phone;
-    private Image image;
+    private String image;
 }

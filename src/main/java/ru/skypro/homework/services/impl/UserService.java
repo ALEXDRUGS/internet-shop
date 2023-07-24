@@ -42,8 +42,10 @@ public class UserService {
         return mappingUtils.mapToUserUpdateDto(mappingUtils.mapFromUpdateDto(updateDto));
     }
 
-    public void updateAvatar(MultipartFile avatar) {
-        AuthServiceImpl.getAuthUser().setAvatar(imageService.createImage(avatar));
+    public void updateAvatar(MultipartFile avatar) throws Exception {
+        User user = AuthServiceImpl.getAuthUser();
+        user.setAvatar(imageService.createImage(avatar));
+        userRepository.saveAndFlush(user);
     }
 
     public void createUser(RegisterReq registerReq, Role role) {

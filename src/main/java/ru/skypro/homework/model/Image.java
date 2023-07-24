@@ -10,7 +10,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String username;
-    @Lob
+    private String name;
     private byte[] image;
+    private String imageReference;
 }

@@ -1,5 +1,6 @@
 package ru.skypro.homework.controllers;
 
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -27,6 +28,7 @@ public class AdsController {
         return adsService.getAllAds();
     }
 
+    @SneakyThrows
     @PostMapping("/ads")
     public AdDto addAd(CreateOrUpdateAdDto properties, MultipartFile image) {
         return adsService.createAd(properties, image);
@@ -60,6 +62,7 @@ public class AdsController {
         return adsService.getUserAds();
     }
 
+    @SneakyThrows
     @PatchMapping("/ads/{id}/image")
     public void updateAdImage(@RequestBody MultipartFile image, @PathVariable Integer id) {
         adsService.updateAdImage(image, id);

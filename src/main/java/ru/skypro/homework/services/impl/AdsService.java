@@ -28,7 +28,7 @@ public class AdsService {
         return adsRepository.findAll();
     }
 
-    public AdDto createAd(CreateOrUpdateAdDto createDto, MultipartFile image) {
+    public AdDto createAd(CreateOrUpdateAdDto createDto, MultipartFile image) throws Exception {
         adsRepository.saveAndFlush(mappingUtils.mapToAd(createDto, imageService.createImage(image)));
         return mappingUtils.mapToAdDto(adsRepository.getByUserId(AuthServiceImpl.getAuthUser().getId()));
     }
@@ -53,7 +53,7 @@ public class AdsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateAdImage(MultipartFile image, Integer id) {
+    public void updateAdImage(MultipartFile image, Integer id) throws Exception {
         adsRepository.getByAdId(id).setImage(imageService.createImage(image));
     }
 

@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @OneToOne
+    @MapKeyJoinColumn(table = "image")
     private Image avatar;
     @Column(unique = true)
     private String username;

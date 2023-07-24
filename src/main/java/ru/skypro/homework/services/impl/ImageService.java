@@ -3,27 +3,27 @@ package ru.skypro.homework.services.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.model.Image;
+import ru.skypro.homework.repositories.FileSystemRepository;
 import ru.skypro.homework.repositories.ImageRepository;
-
-import java.io.IOException;
 
 @Service
 public class ImageService {
     private final ImageRepository imageRepository;
-
-    public ImageService(ImageRepository imageRepository) {
+    private final FileSystemRepository fileSystemRepository;
+    public ImageService(ImageRepository imageRepository, FileSystemRepository fileSystemRepository) {
         this.imageRepository = imageRepository;
+        this.fileSystemRepository = fileSystemRepository;
     }
 
-    public Image createImage(MultipartFile image) {
+    public Image createImage(MultipartFile image) throws Exception {
         Image i = new Image();
-        try {
-            i.setImage(image.getBytes());
-            i.setUsername(AuthServiceImpl.getAuthUser().getUsername());
-            imageRepository.saveAndFlush(i);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return i;
+        i.setName(image.getName());
+        i.setImage(image.getBytes());
+        i.setImageReference(fileSystemRepository.save(image.getBytes(), image.getName()));
+        return imageRepository.saveAndFlush(i);
+    }
+
+    public String getImageReference(Integer id) {
+        return imageRepository.getReferenceById(id).getImageReference();
     }
 }
