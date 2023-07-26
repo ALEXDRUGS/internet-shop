@@ -24,8 +24,11 @@ public class AdsService {
         this.imageService = imageService;
     }
 
-    public List<Ad> getAllAds() {
-        return adsRepository.findAll();
+    public List<AdDto> getAllAds() {
+        return adsRepository.findAll()
+                .stream()
+                .map(mappingUtils::mapToAdDto)
+                .collect(Collectors.toList());
     }
 
     public AdDto createAd(CreateOrUpdateAdDto createDto, MultipartFile image) throws Exception {

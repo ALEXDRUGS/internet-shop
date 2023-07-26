@@ -25,7 +25,10 @@ public class CommentService {
     }
 
     public List<CommentDto> getAdComments(Integer id) {
-        return commentRepository.findAllByAdId(id).stream().map(mappingUtils::mapToCommentDto).collect(Collectors.toList());
+        return commentRepository.findAllByAdId(adsRepository.getReferenceById(id))
+                .stream()
+                .map(mappingUtils::mapToCommentDto)
+                .collect(Collectors.toList());
     }
 
     public CommentDto createComment(String text, Integer adId) {
@@ -42,12 +45,12 @@ public class CommentService {
     }
 
     public void deleteComment(Integer adId, Integer commentId) {
-        commentRepository.deleteByAdIdAndCommentId(adId, commentId);
+        commentRepository.deleteByAdIdAndCommentId(adsRepository.getReferenceById(adId), commentId);
     }
 
     public CommentDto updateComment(String text, Integer adId, Integer commentId) {
-        commentRepository.getByAdIdAndCommentId(adId, commentId).setText(text);
-        return mappingUtils.mapToCommentDto(commentRepository.getByAdIdAndCommentId(adId, commentId));
+        commentRepository.getByAdIdAndCommentId(adsRepository.getReferenceById(adId), commentId).setText(text);
+        return mappingUtils.mapToCommentDto(commentRepository.getByAdIdAndCommentId(adsRepository.getReferenceById(adId), commentId));
     }
 
     public Comment getByCommentId(Integer commentId) {

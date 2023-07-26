@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
-import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.services.impl.AdsService;
 import ru.skypro.homework.services.impl.AuthServiceImpl;
 
@@ -23,7 +22,7 @@ public class AdsController {
     }
 
     @GetMapping("/ads")
-    public List<Ad> getAll() {
+    public List<AdDto> getAll() {
         return adsService.getAllAds();
     }
 
