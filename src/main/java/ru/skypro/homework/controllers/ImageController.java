@@ -9,6 +9,13 @@ import ru.skypro.homework.services.impl.ImageService;
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
+
+    /**
+     * Получение картинки
+     *
+     * @param id Integer
+     * @return String reference
+     */
     @GetMapping("/image/{id}")
     public String getImage(@PathVariable Integer id) {
         return imageService.getImageReference(id);

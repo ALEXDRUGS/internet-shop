@@ -22,6 +22,12 @@ import static ru.skypro.homework.dto.Role.USER;
 public class AuthController {
     private final AuthService authService;
 
+    /**
+     * Аутентификация пользователя
+     *
+     * @param req LoginReq
+     * @return ResponseEntity
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginReq req) {
         if (authService.login(req.getUsername(), req.getPassword())) {
@@ -31,6 +37,12 @@ public class AuthController {
         }
     }
 
+    /**
+     * Регистрация пользователя
+     *
+     * @param req RegisterReq
+     * @return ResponseEntity
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterReq req) {
         Role role = req.getRole() == null ? USER : req.getRole();

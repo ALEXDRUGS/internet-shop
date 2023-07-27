@@ -19,16 +19,35 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    /**
+     * Получение списка комментариев объявления
+     *
+     * @param id Integer
+     * @return List of CommentDto instance
+     */
     @GetMapping("/{id}/comments")
     public List<CommentDto> getAdComments(@PathVariable Integer id) {
         return commentService.getAdComments(id);
     }
 
+    /**
+     * Создание комментария
+     *
+     * @param text String
+     * @param id Integer
+     * @return CommentDto instance
+     */
     @PostMapping("/{id}/comments")
     public CommentDto createComment(@RequestBody String text, @PathVariable Integer id) {
         return commentService.createComment(text, id);
     }
 
+    /**
+     * Удаление комментария
+     *
+     * @param adId Integer
+     * @param commentId Integer
+     */
     @DeleteMapping("/{adId}/comments/{commentId}")
     public void deleteComment(@PathVariable Integer adId, @PathVariable Integer commentId) {
         if (isAuthorities(commentId)) {
@@ -36,6 +55,14 @@ public class CommentController {
         }
     }
 
+    /**
+     * Обновление комментария
+     *
+     * @param text String
+     * @param adId Integer
+     * @param commentId Integer
+     * @return CommentDto instance
+     */
     @PatchMapping("/{adId}/comments/{commentId}")
     public CommentDto updateComment(@RequestBody String text, @PathVariable Integer adId, @PathVariable Integer commentId) {
         if (isAuthorities(commentId)) {
@@ -44,6 +71,12 @@ public class CommentController {
         throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
     }
 
+    /**
+     * Авторизация пользователя
+     *
+     * @param id Integer
+     * @return true
+     */
     private boolean isAuthorities(Integer id) {
         return commentService.getByCommentId(id).getUser().equals(AuthServiceImpl.getAuthUser())
                 || commentService.getByCommentId(id).getUser().getRole().name().equals("ADMIN");
