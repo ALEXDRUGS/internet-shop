@@ -1,7 +1,7 @@
 Серверная часть web приложения частных объявлений Internet-shop.\
 \
-Технологии:\
-> Spring (Data, Web, Security)\
+Технологии:
+  Spring (Data, Web, Security)\
 > Lombok\
 > Liquibase\
 БД:\
