@@ -8,6 +8,8 @@
  * Lombok
   
  * Liquibase
+
+ * Hibernate
   
 БД:
 
