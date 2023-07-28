@@ -2,11 +2,11 @@
 
 Технологии:
 
-  Spring (Data, Web, Security)
+ * Spring (Data, Web, Security)
   
-  Lombok
+ * Lombok
   
-  Liquibase
+ * Liquibase
   
 БД:
 
