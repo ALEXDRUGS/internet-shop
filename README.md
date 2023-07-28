@@ -1,6 +1,7 @@
 Серверная часть web приложения частных объявлений Internet-shop.
 
 Технологии:
+ * Java 18
 
  * Spring (Data, Web, Security)
   
