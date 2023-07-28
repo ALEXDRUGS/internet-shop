@@ -1,6 +1,7 @@
 package ru.skypro.homework.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.services.impl.ImageService;
 
@@ -14,10 +15,10 @@ public class ImageController {
      * Получение картинки
      *
      * @param id Integer
-     * @return String reference
+     * @return FileSystemResource reference
      */
     @GetMapping("/image/{id}")
-    public String getImage(@PathVariable Integer id) {
-        return imageService.getImageReference(id);
+    public FileSystemResource getImage(@PathVariable Integer id) {
+        return imageService.getImage(id);
     }
 }

@@ -1,5 +1,6 @@
 package ru.skypro.homework.services.impl;
 
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.model.Image;
@@ -23,7 +24,7 @@ public class ImageService {
         return imageRepository.saveAndFlush(i);
     }
 
-    public String getImageReference(Integer id) {
-        return imageRepository.getReferenceById(id).getImageReference();
+    public FileSystemResource getImage(Integer id) {
+        return new FileSystemResource(imageRepository.getReferenceById(id).getImageReference());
     }
 }

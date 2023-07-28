@@ -30,11 +30,11 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(
                     (authorization) ->
                             authorization
-                                    .mvcMatchers(HttpMethod.GET, "/ads")
+                                    .mvcMatchers(HttpMethod.GET, "/ads", "/image")
                                     .permitAll()
                                     .mvcMatchers(AUTH_WHITELIST)
                                     .permitAll()
-                                    .mvcMatchers("/ads/**", "/users/**", "/image/**")
+                                    .mvcMatchers("/ads/**", "/users/**")
                                     .authenticated())
             .cors()
             .and()

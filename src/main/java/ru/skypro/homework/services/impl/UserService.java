@@ -1,5 +1,7 @@
 package ru.skypro.homework.services.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,8 +13,12 @@ import ru.skypro.homework.model.User;
 import ru.skypro.homework.repositories.UserRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
+import java.io.FileInputStream;
+
 @Service
 public class UserService {
+    @Value("${upload.path}")
+    private String UPLOAD_PATH;
     private final UserRepository userRepository;
     private final MappingUtils mappingUtils;
     private final PasswordEncoder passwordEncoder;
@@ -56,6 +62,11 @@ public class UserService {
         user.setLastName(registerReq.getLastName());
         user.setPhone(registerReq.getPhone());
         user.setRole(role);
+        try {
+            user.setAvatar(imageService.createImage(new MockMultipartFile("def.jpg", new FileInputStream(UPLOAD_PATH))));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         userRepository.saveAndFlush(user);
     }
 }

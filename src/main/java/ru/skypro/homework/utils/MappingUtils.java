@@ -18,7 +18,7 @@ public class MappingUtils {
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setPhone(entity.getPhone());
-        dto.setImage(entity.getAvatar().getImageReference());
+        dto.setImage("/image" + entity.getAvatar().getImageReference());
         return dto;
     }
 
@@ -42,7 +42,7 @@ public class MappingUtils {
         AdDto dto = new AdDto();
         dto.setPk(entity.getAdId());
         dto.setAuthor(AuthServiceImpl.getAuthUser().getId());
-        dto.setImage(entity.getImage().getImageReference());
+        dto.setImage("/image" + entity.getImage().getImageReference());
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         return dto;
@@ -59,7 +59,7 @@ public class MappingUtils {
         dto.setTitle(entity.getTitle());
         dto.setPrice(entity.getPrice());
         dto.setDescription(entity.getDescription());
-        dto.setImage(entity.getImage().getImageReference());
+        dto.setImage("/image" + entity.getImage().getImageReference());
         return dto;
     }
 
