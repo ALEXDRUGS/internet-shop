@@ -27,4 +27,8 @@ public class ImageService {
     public FileSystemResource getImage(Integer id) {
         return new FileSystemResource(imageRepository.getReferenceById(id).getImageReference());
     }
+
+    public void deleteImage(Image avatar) {
+        imageRepository.delete(avatar);
+    }
 }

@@ -9,7 +9,9 @@ import ru.skypro.homework.dto.RegisterReq;
 import ru.skypro.homework.dto.Role;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.dto.UserUpdateDto;
+import ru.skypro.homework.model.Image;
 import ru.skypro.homework.model.User;
+import ru.skypro.homework.repositories.FileSystemRepository;
 import ru.skypro.homework.repositories.UserRepository;
 import ru.skypro.homework.utils.MappingUtils;
 
@@ -23,12 +25,14 @@ public class UserService {
     private final MappingUtils mappingUtils;
     private final PasswordEncoder passwordEncoder;
     private final ImageService imageService;
+    private final FileSystemRepository fileSystemRepository;
 
-    public UserService(UserRepository userRepository, MappingUtils mappingUtils, PasswordEncoder passwordEncoder, ImageService imageService) {
+    public UserService(UserRepository userRepository, MappingUtils mappingUtils, PasswordEncoder passwordEncoder, ImageService imageService, FileSystemRepository fileSystemRepository) {
         this.userRepository = userRepository;
         this.mappingUtils = mappingUtils;
         this.passwordEncoder = passwordEncoder;
         this.imageService = imageService;
+        this.fileSystemRepository = fileSystemRepository;
     }
 
     public void updatePassword(String oldPass, String newPass) {
@@ -50,7 +54,10 @@ public class UserService {
 
     public void updateAvatar(MultipartFile avatar) throws Exception {
         User user = AuthServiceImpl.getAuthUser();
+        Image avatarToDelete = user.getAvatar();
         user.setAvatar(imageService.createImage(avatar));
+        imageService.deleteImage(avatarToDelete);
+        fileSystemRepository.delete(avatarToDelete.getImageReference());
         userRepository.saveAndFlush(user);
     }
 
@@ -63,7 +70,8 @@ public class UserService {
         user.setPhone(registerReq.getPhone());
         user.setRole(role);
         try {
-            user.setAvatar(imageService.createImage(new MockMultipartFile("def.jpg", new FileInputStream(UPLOAD_PATH))));
+            user.setAvatar(imageService.createImage(new MockMultipartFile("def.jpg",
+                    new FileInputStream(UPLOAD_PATH + "def.jpg"))));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

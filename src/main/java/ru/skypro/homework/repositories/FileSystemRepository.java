@@ -3,6 +3,7 @@ package ru.skypro.homework.repositories;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,5 +19,13 @@ public class FileSystemRepository {
         Files.createDirectories(newFile.getParent());
         Files.write(newFile, content);
         return newFile.toAbsolutePath().toString();
+    }
+
+    public void delete(String path) {
+        try {
+            Files.delete(Path.of(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
