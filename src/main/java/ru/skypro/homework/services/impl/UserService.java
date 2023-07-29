@@ -70,7 +70,7 @@ public class UserService {
         user.setPhone(registerReq.getPhone());
         user.setRole(role);
         try {
-            user.setAvatar(imageService.createImage(new MockMultipartFile("def.jpg",
+            user.setAvatar(imageService.createImage(new MockMultipartFile("def",
                     new FileInputStream(UPLOAD_PATH + "def.jpg"))));
         } catch (Exception e) {
             throw new RuntimeException(e);
