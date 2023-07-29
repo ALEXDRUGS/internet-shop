@@ -10,13 +10,13 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Image avatar;
     private Integer price;
     private String title;
     private String description;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Image image;
 }

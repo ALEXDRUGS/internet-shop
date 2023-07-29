@@ -11,11 +11,11 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer commentId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     User user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     Ad adId;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     Image avatar;
     String firstName;
     LocalDateTime dateOfCreation;
